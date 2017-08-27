@@ -20,21 +20,21 @@ const MyForm = (() => {
 
     const validationRules = [
       {
-        id: 'inputFio',
+        name: 'fio',
         predicates: [
-          validateByPattern(/^[a-zа-я]+\s[a-zа-я]+\s[a-zа-я]+$/i)
+          validateByPattern(/^[a-zа-я]+\s+[a-zа-я]+\s+[a-zа-я]+$/i)
         ],
         error: 'Invalid name'
       },
       {
-        id: 'inputEmail',
+        name: 'email',
         predicates: [
-          validateByPattern(/@ya\.ru$|@yandex\.(ru|ua|by|kz|com)$/i)
+          validateByPattern(/.+(@ya\.ru$|@yandex\.(ru|ua|by|kz|com)$)/i)
         ],
         error: 'Invalid email'
       },
       {
-        id: 'inputPhone',
+        name: 'phone',
         predicates: [
           validateByPattern(/\+7\(\d{3}\)\d{3}\-\d{2}\-\d{2}/i), 
           checkTotalNumbers
@@ -46,7 +46,7 @@ const MyForm = (() => {
     this.setData = data => {
       const inputs = form.querySelectorAll('input');
       Array.prototype.forEach.call(inputs, x => {
-        x.value = data[x.id] || '';
+        x.value = data[x.name] || '';
       })
     }
     
@@ -54,7 +54,7 @@ const MyForm = (() => {
       const inputs = form.querySelectorAll('input');
     
       return Array.prototype.reduce.call(inputs, (acc, x) => {
-        acc[x.id] = x.value;
+        acc[x.name] = x.value;
         return acc;
       }, {});
     }
@@ -63,13 +63,14 @@ const MyForm = (() => {
       const data = this.getData();
     
       const errors = validationRules.reduce((acc, x) => {
-        const value = data[x.id];
+        const value = data[x.name];
         const isFieldValid = x.predicates.every(predicate => predicate(value));
   
         if (!isFieldValid) {
-          form[x.id].classList.add('form__input--error');
+          form[x.name].classList.add('form__input--error');
           return acc.concat([x.error]);
         }
+        form[x.name].classList.remove('form__input--error');
     
         return acc;
       }, []);
