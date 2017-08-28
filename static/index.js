@@ -16,7 +16,7 @@ const MyForm = (() => {
         }, 0);
       }
     const validateByPattern = pattern => value => pattern.test(value);
-    const checkTotalNumbers = value => sumNumbers(value) < 30;
+    const checkTotalNumbers = value => sumNumbers(value) <= 30;
 
     const validationRules = [
       {
@@ -29,7 +29,7 @@ const MyForm = (() => {
       {
         name: 'email',
         predicates: [
-          validateByPattern(/.+(@ya\.ru$|@yandex\.(ru|ua|by|kz|com)$)/i)
+          validateByPattern(/^([a-zA-Z0-9_\-\.]+)(@ya\.ru$|@yandex\.(ru|ua|by|kz|com)$)/i)
         ],
         error: 'Invalid email'
       },
