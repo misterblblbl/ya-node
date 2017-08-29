@@ -9,14 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
-// app.use((req, res, next) => {
-//   console.log(req.params);
-//   // res.setTimeout(1200, function(){
-//   //     console.log('Request has timed out.');
-//   //         res.send(408);
-//   //     });
-//   next();
-// });
 
 app.use('/', routes);
 
